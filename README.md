@@ -24,6 +24,8 @@ This can also be installed with `npm`.
 $ npm install whatwg-fetch --save
 ```
 
+(For a node.js implementation, try [node-fetch](https://github.com/bitinn/node-fetch))
+
 ## Usage
 
 The `fetch` function supports any HTTP method. We'll focus on GET and POST
@@ -115,10 +117,9 @@ resolved only on successful, 200 level, status codes.
 ```javascript
 function status(response) {
   if (response.status >= 200 && response.status < 300) {
-    return Promise.resolve(response)
-  } else {
-    return Promise.reject(new Error(response.statusText))
+    return response
   }
+  throw new Error(response.statusText)
 }
 
 function json(response) {
